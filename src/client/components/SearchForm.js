@@ -79,16 +79,20 @@ export default class SearchForm extends React.Component {
 
   handleSubmit() {
 
+
+
     var query = querystring.stringify({
-     products: this.state.selectedProducts.map(product => product.code),
-     countries: this.state.selectedCountries.map(country => country.code).filter(code => code !== 'ALL_COUNTRIES')
+     product: this.state.selectedProducts.map(product => product.code),
+     country: this.state.selectedCountries.map(country => country.code).filter(code => code !== 'ALL_COUNTRIES'),
+     interval: this.state.intervals.map(i => `${i.from.month}.${i.from.year}-${i.till.month}.${i.till.year}`)
     });
 
     this.props.history.replaceState(null, '/app/stats?' + query)
   }
 
   onIntervalChange(index, date) {
-    console.log('Changed interval #' + index  + ' to value ' + date);
+    this.setState(update(this.state, {intervals : {index: {$set:date}}}));
+    console.log(this.state);
   }
 
   render() {

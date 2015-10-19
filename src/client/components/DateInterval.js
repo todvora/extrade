@@ -23,7 +23,7 @@ export default class DateInterval extends React.Component {
  render() {
     return (
       <div>
-        From: <DateSelector currentDate={this.props.interval.from} maxDate={this.props.maxDate} onChange={this.onDateFromChange}/> Till: <DateSelector currentDate={this.props.interval.till} maxDate={this.props.maxDate} onChange={this.onDateTillChange}/>
+        Od: <DateSelector currentDate={this.props.interval.from} maxDate={this.props.maxDate} onChange={this.onDateFromChange}/> Do: <DateSelector currentDate={this.props.interval.till} maxDate={this.props.maxDate} onChange={this.onDateTillChange}/>
       </div>
     );
   }

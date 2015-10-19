@@ -14,22 +14,22 @@ export default class DateSelector extends React.Component {
 
  onDateChange(event) {
     this.props.onChange({
-        month: findDOMNode(this.refs.month),
-        year: findDOMNode(this.refs.year)
+        month: findDOMNode(this.refs.month).value,
+        year: findDOMNode(this.refs.year).value
     });
  }
 
  render() {
     return (
       <span>
-          <select onChange={this.onDateChange} ref='month'>
+          <select onChange={this.onDateChange} ref='month' value={parseInt(this.props.currentDate.month)}>
              {this.months.map((month, index) => {
-                return <option key={month} selected={index+1==parseInt(this.props.currentDate.month)} value={index+1}>{month}</option>
+                return <option key={month} value={index+1}>{month}</option>
              }, this)}
           </select>
-          <select onChange={this.onDateChange} ref='year'>
+          <select onChange={this.onDateChange} ref='year' value={this.props.currentDate.year}>
           {this.years.map(year => {
-            return <option key={year} selected={year==parseInt(this.props.currentDate.year)} value={year}>{year}</option>
+            return <option key={year} value={year}>{year}</option>
           }, this)}
           </select>
       </span>

@@ -21,11 +21,13 @@ app.set('view engine', 'jade');
 app.use('/api', api);
 
 app.get('/app*', (req, res) => {
-  const appSrc = config.isProduction ? `/build/app.js?v=${version}`: '//localhost:8888/build/app.js';
   const version = config.version;
+  const isProduction = config.isProduction;
+  const appSrc = isProduction ? `/build/app.js?v=${version}`: '//localhost:8888/build/app.js';
   res.render('react', {
     appSrc: appSrc,
-    version: version
+    version: version,
+    isProduction:isProduction
   });
 });
 

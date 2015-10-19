@@ -1,6 +1,9 @@
 import client from 'extrade-cz-api';
 import express from 'express';
 import cache from '../lib/cache';
+import Q from 'q';
+import ProductMapping from '../lib/ProductMapping';
+
 const router = express.Router();
 
 const filter = function(result, query) {
@@ -20,18 +23,46 @@ const filter = function(result, query) {
  }
 }
 
+const parseIntervals = function(intervals) {
+  const intervalRegex = new RegExp('(\\d{2}).(\\d{4})-(\\d{2}).(\\d{4})');
+  return intervals.map(serialized => {
+      var parts = intervalRegex.exec(serialized);
+      return {
+        from:{month:parts[1], year:parts[2]},
+        till:{month:parts[3], year:parts[4]}
+      }
+    });
+}
+
 router.get('/data', (req, res) => {
-  client.getStats({
-             monthFrom : '04',
-             yearFrom :  '2014',
-             monthTill : '04',
-             yearTill :  '2015',
-             direction : 'd',
-             products :  req.query.products,
-             countries : req.query.countries || []
-   })
-   .then(result => {
-      res.send(result);
+
+  const intervals = parseIntervals(req.query.interval);
+
+  const createClientPromise = function(interval, direction, products, countries) {
+    const criteria = {
+      monthFrom : interval.from.month,
+      yearFrom :  interval.from.year,
+      monthTill : interval.till.month,
+      yearTill :  interval.till.year,
+      direction : direction,
+      products :  products,
+      countries : countries
+    };
+    return client.getStats(criteria);
+  }
+
+  const promises = [];
+
+  intervals.forEach(interval => {
+    const products = req.query.product;
+    const countries = req.query.country || [];
+    promises.push(createClientPromise(interval, 'd', products, countries))
+    promises.push(createClientPromise(interval, 'v', products, countries))
+  });
+
+   Q.all(promises)
+   .then(results => {
+      res.send(ProductMapping.map(results));
     })
     .fail(ex => {
       console.log(ex); // prints to the error on the stdout

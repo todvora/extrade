@@ -5,16 +5,21 @@
   }
 }
 
-table tbody:empty {
+table tbody:empty, .products:empty {
   height: 32px;
   width: 32px;
   margin:5px;
   background: url('../images/ajax-loader.gif');
   display: block;
+  margin: 0px auto;
 }
 
 .remove-link {
   color: darkred;
   padding: 0 5px;
   cursor: pointer;
+}
+
+.panel-default > .panel-heading {
+    background-color: #FFA500;
 }

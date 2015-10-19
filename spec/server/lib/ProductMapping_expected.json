@@ -1,0 +1,88 @@
+[
+  {
+    "code": "87120030",
+    "name": "Jízdní kola, bez motoru (kromě bez kuličkových ložisek)",
+    "intervals": [
+      {
+        "from": "1.9.2012",
+        "till": "31.8.2013",
+        "import": [
+          {
+            "country": "AT",
+            "countryName": "Rakousko",
+            "weight": "47537",
+            "price": "17925",
+            "unit": "PCE",
+            "count": "3180"
+          },
+          {
+            "country": "DE",
+            "countryName": "Německo",
+            "weight": "154461",
+            "price": "133010",
+            "unit": "PCE",
+            "count": "12068"
+          }
+        ],
+        "export": [
+          {
+            "country": "AT",
+            "countryName": "Rakousko",
+            "weight": "1094588",
+            "price": "291733",
+            "unit": "PCE",
+            "count": "57793"
+          },
+          {
+            "country": "DE",
+            "countryName": "Německo",
+            "weight": "1814975",
+            "price": "742746",
+            "unit": "PCE",
+            "count": "123358"
+          }
+        ]
+      },
+      {
+        "from": "1.9.2013",
+        "till": "31.8.2014",
+        "import": [
+          {
+            "country": "AT",
+            "countryName": "Rakousko",
+            "weight": "30707",
+            "price": "13713",
+            "unit": "PCE",
+            "count": "2172"
+          },
+          {
+            "country": "DE",
+            "countryName": "Německo",
+            "weight": "169598",
+            "price": "173594",
+            "unit": "PCE",
+            "count": "13586"
+          }
+        ],
+        "export": [
+          {
+            "country": "AT",
+            "countryName": "Rakousko",
+            "weight": "1162369",
+            "price": "318963",
+            "unit": "PCE",
+            "count": "59753"
+          },
+          {
+            "country": "DE",
+            "countryName": "Německo",
+            "weight": "1814207",
+            "price": "667629",
+            "unit": "PCE",
+            "count": "123135"
+          }
+        ]
+      }
+    ]
+  }
+]

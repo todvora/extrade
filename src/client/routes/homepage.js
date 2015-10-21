@@ -1,13 +1,12 @@
 import React from 'react';
-import './styles/main.less';
+import '../styles/main.less';
 //import imgHello from './hello.gif';
 //import imgIcon from './icon.png';
-import $ from 'jquery';
-import SearchForm from './components/SearchForm';
+import SearchForm from '../components/SearchForm';
 
 import { Router, Route, Link } from 'react-router'
 
-export default class Main extends React.Component {
+export default class Homepage extends React.Component {
   render() {
     return (
       <div>

@@ -6,6 +6,9 @@ import config from './config';
 import api from './routes/api';
 import path from 'path';
 
+import ReactWebpage from './ReactWebpage';
+
+
 const app = express();
 
 app.use(compression());
@@ -21,14 +24,12 @@ app.set('view engine', 'jade');
 app.use('/api', api);
 
 app.get('/app*', (req, res) => {
-  const version = config.version;
-  const isProduction = config.isProduction;
-  const appSrc = isProduction ? `/build/app.js?v=${version}`: '//localhost:8888/build/app.js';
-  res.render('react', {
-    appSrc: appSrc,
-    version: version,
-    isProduction:isProduction
-  });
+  res.send('<!DOCTYPE html>' + React.renderToStaticMarkup(
+      <ReactWebpage
+        isProduction={config.isProduction}
+        version={config.version}
+      />
+  ));
 });
 
 app.use('/', (req, res) => {

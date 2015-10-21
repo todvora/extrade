@@ -38,7 +38,7 @@ module.exports = function(isDevelopment) {
         loader: isDevelopment ?
           'style-loader!' + lessLoaders
           : ExtractTextPlugin.extract('style-loader', lessLoaders),
-        test: /\.(less)$/
+        test: /\.(less|css)$/
       }]
     },
     output: isDevelopment ? {
@@ -69,6 +69,12 @@ module.exports = function(isDevelopment) {
           new webpack.optimize.DedupePlugin(),
           new webpack.optimize.OccurenceOrderPlugin(),
           new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
+        );
+        plugins.push(
+          new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+          })
         );
       return plugins;
     })(),

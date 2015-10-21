@@ -14,10 +14,13 @@
     "babel-core": "^5.6.5",
     "babel-eslint": "^3.0.1",
     "babel-loader": "^5.0.0",
+    "bootstrap": "^3.3.5",
+    "chart.js": "^1.0.2",
     "compression": "^1.4.0",
     "css-loader": "^0.15.1",
     "eslint": "^0.23.0",
     "eslint-plugin-react": "^2.0.1",
+    "exports-loader": "^0.6.2",
     "express": "^4.11.2",
     "extract-text-webpack-plugin": "^0.8.0",
     "extrade-cz-api": ">=1.1.0",
@@ -27,6 +30,7 @@
     "gulp-eslint": "^0.14.0",
     "gulp-util": "^3.0.2",
     "history": "^1.12.5",
+    "imports-loader": "^0.6.5",
     "jade": "^1.11.0",
     "jquery": "^2.1.4",
     "less": "^2.5.1",
@@ -41,6 +45,7 @@
     "react": "^0.14.0",
     "react-addons-update": "^0.14.0",
     "react-autosuggest": "^2.1.1",
+    "react-chartjs": "^0.6.0",
     "react-dom": "^0.14.0",
     "react-hot-loader": "^1.1.4",
     "react-router": "^1.0.0-rc3",
@@ -58,8 +63,13 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": ["js"],
-    "moduleFileExtensions": ["js", "json"],
+    "testFileExtensions": [
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
     "testDirectoryName": "spec"
   }
 }

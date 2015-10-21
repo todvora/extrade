@@ -70,7 +70,7 @@ export default class Chart extends React.Component {
         <div className="btn-group" role="group" style={{clear:'both', margin:'20px 0'}}>
           <a className={"btn btn-default " + (this.state.property == 'price' ? 'btn-primary' : '')} href="#" onClick={this.selectProperty.bind(this, 'price')}>Cena</a>
           <a className={"btn btn-default " + (this.state.property == 'count' ? 'btn-primary' : '')} href="#" onClick={this.selectProperty.bind(this, 'count')}>Množství</a>
-          <a className={"btn btn-default " + (this.state.property == 'weight' ? 'btn-primary' : '')} href="#" onClick={this.selectProperty.bind(this, 'weight')}>Váha</a>
+          <a className={"btn btn-default " + (this.state.property == 'weight' ? 'btn-primary' : '')} href="#" onClick={this.selectProperty.bind(this, 'weight')}>Hmotnost</a>
         </div>
 
         <div>

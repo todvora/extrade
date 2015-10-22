@@ -42,7 +42,7 @@ export default class ProductTable extends React.Component {
              <th>Kód země</th>
              <th>Název země</th>
              {this.props.product.intervals.map(interval => {
-                return <th>{interval.from}-{interval.till}</th>
+                return <th>{interval.from}<br/>{interval.till}</th>
              })}
             </tr>
           </thead>

@@ -27,9 +27,10 @@ export default class Stats extends React.Component {
  componentDidMount() {
 
    const criteria = {
-     intervals: DateUtils.parseIntervals(this.props.location.query.interval),
+     interval: DateUtils.parseInterval(this.props.location.query.interval),
      products: this.props.location.query.product,
-     countries: this.props.location.query.country || []
+     countries: this.props.location.query.country || [],
+     groupBy: this.props.location.query.groupBy
    }
 
    var self = this;

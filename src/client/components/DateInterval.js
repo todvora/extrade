@@ -13,12 +13,12 @@ export default class DateInterval extends React.Component {
 
  onDateFromChange(newDate) {
     this.props.interval.from = newDate;
-    this.props.onChange(this.props.index, this.props.interval);
+    this.props.onChange(this.props.interval);
  }
 
  onDateTillChange(newDate) {
     this.props.interval.till = newDate;
-    this.props.onChange(this.props.index, this.props.interval);
+    this.props.onChange(this.props.interval);
  }
 
   getIntervalLength() {
@@ -44,6 +44,5 @@ export default class DateInterval extends React.Component {
 DateInterval.propTypes = {
   interval: React.PropTypes.object.isRequired,
   maxDate: React.PropTypes.object.isRequired,
-  index: React.PropTypes.number.isRequired,
   onChange: React.PropTypes.func.isRequired
 };

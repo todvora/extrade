@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const precomputeIntervals = function(lastDate) {
+const precomputeInterval = function(lastDate) {
     var y = function(stamp) {
       return stamp.format('YYYY');
     };
@@ -14,31 +14,27 @@ const precomputeIntervals = function(lastDate) {
     };
 
     var lastTill = moment({ year :lastDate.year, month :parseInt(lastDate.month) - 1}); // months are zero-based
-    var lastFrom = lastTill.clone().subtract().subtract(11, 'months');
+    var lastFrom = lastTill.clone().subtract().subtract(11, 'months').subtract(9, 'years');
 
-    var results = [toObj(lastFrom, lastTill)];
-
-    for(var i = 1; i< 10; i++) {
-      var from = lastFrom.clone().subtract(i, 'year');
-      var till = lastTill.clone().subtract(i, 'year');
-      results.push(toObj(from, till));
-    }
-    return results.reverse();
+    return toObj(lastFrom, lastTill);
 };
 
-const parseIntervals = function(intervals) {
-  const intervalRegex = new RegExp('(\\d{2}).(\\d{4})-(\\d{2}).(\\d{4})');
-  return intervals.map(serialized => {
-      var parts = intervalRegex.exec(serialized);
-      return {
-        from:{month:parts[1], year:parts[2]},
-        till:{month:parts[3], year:parts[4]}
-      }
-    });
+const encodeInterval = function(interval) {
+  return `${interval.from.month}.${interval.from.year}-${interval.till.month}.${interval.till.year}`;
+}
+
+const parseInterval = function(interval) {
+  const intervalRegex = new RegExp('(\\d{1,2}).(\\d{4})-(\\d{1,2}).(\\d{4})');
+  var parts = intervalRegex.exec(interval);
+  return {
+    from:{month:parts[1], year:parts[2]},
+    till:{month:parts[3], year:parts[4]}
+  }
 }
 
 
 module.exports = {
-    precomputeIntervals: precomputeIntervals,
-    parseIntervals: parseIntervals
+    precomputeInterval: precomputeInterval,
+    parseInterval: parseInterval,
+    encodeInterval: encodeInterval
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/autosuggest.less';
 import Autosuggest from 'react-autosuggest';
+import update from 'react-addons-update';
 
 export default class SuggestBox extends React.Component {
 
@@ -8,13 +9,18 @@ export default class SuggestBox extends React.Component {
     super();
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
+
+    this.state = {
+      inputValue: ''
+    };
   }
 
   renderSuggestion(suggestion, input) {
+    const regex = new RegExp('^(.*)(' + input + ')(.*)$', 'i');
+    const replaceWith = '$1<strong>$2</strong>$3';
+    const text = suggestion.name.replace(regex, replaceWith);
     return (
-      <span>
-        <strong>{suggestion.name.slice(0, input.length)}</strong>{suggestion.name.slice(input.length)}
-      </span>
+      <span dangerouslySetInnerHTML={{ __html: text}}></span>
     );
   }
 
@@ -25,6 +31,7 @@ export default class SuggestBox extends React.Component {
   onSuggestionSelected (suggestion, event) {
     event.preventDefault();
     this.props.onSelected(suggestion);
+    this.setState(update(this.state, {inputValue:{$set: ''}}));
   }
 
   getSuggestions(input, callback) {
@@ -54,6 +61,8 @@ export default class SuggestBox extends React.Component {
                      suggestionValue={this.getSuggestionValue}
                      onSuggestionSelected={this.onSuggestionSelected}
                      showWhen={input => input.trim().length >= 2}
+                     value={this.state.inputValue}
+                     inputAttributes={{placeholder:"Začněte psát..."}}
         />
       </div>
     );

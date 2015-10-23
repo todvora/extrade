@@ -35,7 +35,7 @@ export default class Chart extends React.Component {
             .map(rows => rows.reduce((acc, current) => acc + safeInt(current[property]), 0));
     }
 
-    const labels = this.props.product.intervals.map(interval => `${interval.from} - ${interval.till}`);
+    const labels = this.props.product.intervals.map(interval => interval.period);
 
     const importData = getSum('import', property);
     const exportData = getSum('export', property);

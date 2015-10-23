@@ -1,35 +1,46 @@
 import _ from 'lodash';
 
-var mapProducts = function(intervals) {
-  var products = intervals
+var mapProducts = function(inputData) {
+  var products = inputData
     .map(int => int.results)
     .reduce((acc, val) =>  acc.concat(val), [])
     .map(res => {
       return {code:res.code, name:res.name};
     });
 
+
+
   products = _.uniq(products, 'code');
 
-  const periods = _.uniq(_.pluck(intervals, 'period'), (period => period.from + '-' + period.till));
+  const periods = _.uniq(_.pluck(inputData, 'results')
+    .reduce((acc, val) =>  acc.concat(val), []) //flatten
+    .map(function(row){return row.period;}));
 
-  const filter = function(data, product, direction) {
+  const filter = function(data, product, direction, period) {
     return data
        .filter(interval => interval.direction == direction)
        .map(i => i.results)
-       .reduce((acc, val) =>  acc.concat(val), [])
-       .filter(res => res.code == product.code)
-       .map(res => _.omit(res, ['code', 'name']));
+       .reduce((acc, val) =>  acc.concat(val), []) //flatten
+       .filter(res => res.code == product.code && res.period == period)
+       .map(res => _.pick(res, ['country', 'countryName', 'weight', 'price', 'unit', 'count']));
   }
 
   return products.map(product => {
-    product.intervals = _.cloneDeep(periods);
-    product.intervals.forEach(interval => {
-      const importExport = intervals.filter(source => _.isEqual(source.period, interval));
-      interval.import = filter(importExport, product, 'import');
-      interval.export = filter(importExport, product, 'export');
+    const intervals = _.cloneDeep(periods).map(period => {
+      const importData = filter(inputData, product, 'import', period);
+      const exportData = filter(inputData, product, 'export', period);
+      return {
+        period:period,
+        import:importData,
+        export:exportData
+      };
     });
 
-    return product;
+    return {
+      name:product.name,
+      code:product.code,
+      intervals:intervals
+    };
   });
 }
 

@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "start": "node src/server",
-    "test": "jest"
+    "test": "jest",
+    "autotest": "jest --watch"
   },
   "dependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -23,7 +24,7 @@
     "exports-loader": "^0.6.2",
     "express": "^4.11.2",
     "extract-text-webpack-plugin": "^0.8.0",
-    "extrade-cz-api": ">=1.1.0",
+    "extrade-cz-api": ">=1.2.0",
     "file-loader": "^0.8.4",
     "gulp": "^3.8.10",
     "gulp-bg": "0.0.5",

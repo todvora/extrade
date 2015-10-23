@@ -5,6 +5,7 @@ import dateUtils from '../utils/DateUtils';
 
 import SuggestBox from './SuggestBox';
 import DateInterval from './DateInterval';
+import GroupBySelect from './GroupBySelect';
 
 import querystring from 'querystring';
 import $ from 'jquery';
@@ -15,34 +16,59 @@ export default class SearchForm extends React.Component {
 
   constructor() {
     super();
-    this.state = {
+    this.onProductSelected = this.onProductSelected.bind(this);
+    this.onProductDeselected = this.onProductDeselected.bind(this);
+
+    this.onCountrySelected = this.onCountrySelected.bind(this);
+    this.onCountryDeselected = this.onCountryDeselected.bind(this);
+
+    this.onIntervalChange = this.onIntervalChange.bind(this);
+    this.onGroupByChange = this.onGroupByChange.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.getInitialCriteria = this.getInitialCriteria.bind(this);
+
+    this.state = this.getInitialCriteria();
+  }
+
+  setState(state) {
+    super.setState(state);
+  }
+
+  getInitialCriteria() {
+    const defaultCriteria = {
       selectedProducts:[
         {code:'87120030', name:'Jízdní kola, bez motoru (kromě bez kuličkových ložisek)'},
         {code:'87149110', name:'Rámy pro vozidla čísel 8711 až 8713 (kromě pro motocykly,mopedy a vozí'},
         {code:'87149130', name:'Přední vidlice pro vozidla čísel 8711 až 8713 (kromě pro motocykly,mop'}
       ],
       selectedCountries:[{code:'ALL_COUNTRIES', name: 'Celý svět'}],
-      intervals:[]
+      groupBy:'A'
     };
 
-     this.onProductSelected = this.onProductSelected.bind(this);
-     this.onProductDeselected = this.onProductDeselected.bind(this);
+    const fromStorage = localStorage.getItem('criteria');
+    if(fromStorage !== null) {
+      return JSON.parse(fromStorage);
+    } else {
+      return defaultCriteria;
+    }
+  }
 
-     this.onCountrySelected = this.onCountrySelected.bind(this);
-     this.onCountryDeselected = this.onCountryDeselected.bind(this);
 
-     this.onIntervalChange = this.onIntervalChange.bind(this);
-
-     this.handleSubmit = this.handleSubmit.bind(this);
+  componentDidUpdate(prevProps, prevState) {
+    localStorage.setItem('criteria', JSON.stringify(this.state));
   }
 
    componentDidMount() {
       $.get('/api/products-preload', function(result){console.log(result)});
       $.get('/api/last-date', function(maxDate) {
-        var precomputed = dateUtils.precomputeIntervals(maxDate);
-        this.setState(update(this.state,{
+
+        var initialInterval = this.state.interval || dateUtils.precomputeInterval(maxDate);
+
+        this.setState(update(this.state, {
           maxDate:{$set: maxDate},
-          intervals:{$set: precomputed}
+          interval:{$set: initialInterval}
         }));
       }.bind(this));
    }
@@ -78,30 +104,31 @@ export default class SearchForm extends React.Component {
   }
 
   handleSubmit() {
-
-
-
     var query = querystring.stringify({
      product: this.state.selectedProducts.map(product => product.code),
      country: this.state.selectedCountries.map(country => country.code).filter(code => code !== 'ALL_COUNTRIES'),
-     interval: this.state.intervals.map(i => `${i.from.month}.${i.from.year}-${i.till.month}.${i.till.year}`)
+     interval: dateUtils.encodeInterval(this.state.interval),
+     groupBy: this.state.groupBy
     });
 
     this.props.history.replaceState(null, '/app/stats?' + query)
   }
 
-  onIntervalChange(index, date) {
-    this.setState(update(this.state, {intervals : {index: {$set:date}}}));
-    console.log(this.state);
+  onIntervalChange(date) {
+    this.setState(update(this.state, {interval : {$set:date}}));
+  }
+
+  onGroupByChange(value) {
+    this.setState(update(this.state, {groupBy : {$set:value}}));
   }
 
   render() {
     return (
       <div>
-        <h3>Intervaly</h3>
-        {this.state.intervals.map((interval, index) => {
-           return <DateInterval interval={interval} maxDate={this.state.maxDate} index={index} onChange={this.onIntervalChange}/>
-        }, this)}
+        <h3>Interval</h3>
+           {this.state.interval && <DateInterval interval={this.state.interval} maxDate={this.state.maxDate} onChange={this.onIntervalChange}/>}
+           <br/>
+           <GroupBySelect value={this.state.groupBy} onChange={this.onGroupByChange} />
         <h3>Produkty</h3>
         <SuggestBox selectedValues={this.state.selectedProducts}
                     onSelected={this.onProductSelected}

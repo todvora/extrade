@@ -8,7 +8,7 @@ const router = express.Router();
 
 const filter = function(result, query) {
  if(typeof query !== 'undefined') {
-    const regex = new RegExp('^' + query, 'i');
+    const regex = new RegExp('^(.*)(' + query + ')(.*)$', 'i');
     var filtered = Object.keys(result).reduce(function(acc, code) {
       var value = result[code];
       if(regex.test(value) || regex.test(code)) {
@@ -26,7 +26,6 @@ const filter = function(result, query) {
 router.get('/data', (req, res) => {
 
   const criteria = _.cloneDeep(req.query);
-
 
     criteria.countries = criteria.countries || []; // in case of not defined countries in request
 

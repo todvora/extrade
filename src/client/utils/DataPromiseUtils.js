@@ -1,29 +1,27 @@
 import Q from 'q';
 import ProductMapping from './ProductMapping';
 
-const createCriteriaPromise = function(interval, direction, products, countries) {
-      return Q({
-        monthFrom : interval.from.month,
-        yearFrom :  interval.from.year,
-        monthTill : interval.till.month,
-        yearTill :  interval.till.year,
-        direction : direction,
-        products :  products,
-        countries : countries
-      });
+const createCriteriaPromise = function(direction, criteria) {
+  var {interval, products, countries, groupBy} = criteria;
+  return Q({
+    monthFrom : interval.from.month,
+    yearFrom :  interval.from.year,
+    monthTill : interval.till.month,
+    yearTill :  interval.till.year,
+    direction : direction,
+    products :  products,
+    countries : countries,
+    groupBy: groupBy
+  });
   };
 
 const loadData = function(criteria, queryDataFunction, progressCallback) {
 
   var finishedCalls = 0;
-
-  var {intervals, products, countries} = criteria;
-  return Q.all(intervals
-    .reduce((acc, interval) => {
-      acc.push(createCriteriaPromise(interval, 'd', products, countries));
-      acc.push(createCriteriaPromise(interval, 'v', products, countries));
-      return acc;
-    }, [])
+  return Q.all([
+      createCriteriaPromise('d', criteria),
+      createCriteriaPromise('v', criteria)
+    ]
     .map((promise, index, array) => {
       return promise
         .then(criteria => {

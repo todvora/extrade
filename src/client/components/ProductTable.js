@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import '../styles/ProductTable.less';
 
 export default class ProductTable extends React.Component {
 
@@ -24,7 +25,7 @@ export default class ProductTable extends React.Component {
 
   getRowValue(countryCode, interval) {
     const value = this.props.product.intervals
-      .filter(i => i.from == interval.from && i.till == interval.till)
+      .filter(i => i.period == interval)
       .map(i => i[this.props.direction])
       .reduce((acc, val) =>  acc.concat(val), []) // flatten
       .filter(row => row.country == countryCode)
@@ -34,7 +35,7 @@ export default class ProductTable extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="product-table">
         <h3>{this.props.direction}, {this.props.property}</h3>
         <table className="table table-condensed table-hover table-bordered">
           <thead>
@@ -42,7 +43,7 @@ export default class ProductTable extends React.Component {
              <th>Kód země</th>
              <th>Název země</th>
              {this.props.product.intervals.map(interval => {
-                return <th>{interval.from}<br/>{interval.till}</th>
+                return <th>{interval.period}</th>
              })}
             </tr>
           </thead>
@@ -52,7 +53,7 @@ export default class ProductTable extends React.Component {
                   <td>{row.country}</td>
                   <td>{row.countryName}</td>
                    {this.props.product.intervals.map(interval => {
-                      return <td>{this.getRowValue(row.country, interval)}</td>
+                      return <td>{this.getRowValue(row.country, interval.period)}</td>
                    })}
                 </tr>
           })}

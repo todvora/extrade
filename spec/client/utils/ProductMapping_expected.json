@@ -2,6 +2,7 @@
   {
     "code": "87120030",
     "name": "Jízdní kola, bez motoru (kromě bez kuličkových ložisek)",
+    "unit": "PCE",
     "intervals": [
       {
         "period": "1/2014",
@@ -11,7 +12,6 @@
             "countryName": "Rakousko",
             "weight": "19733",
             "price": "7332",
-            "unit": "PCE",
             "count": "1427"
           },
           {
@@ -19,7 +19,6 @@
             "countryName": "Německo",
             "weight": "51719",
             "price": "65311",
-            "unit": "PCE",
             "count": "4186"
           }
         ],
@@ -29,7 +28,6 @@
             "countryName": "Rakousko",
             "weight": "460302",
             "price": "125922",
-            "unit": "PCE",
             "count": "24207"
           },
           {
@@ -37,7 +35,6 @@
             "countryName": "Německo",
             "weight": "550446",
             "price": "195410",
-            "unit": "PCE",
             "count": "37097"
           }
         ]
@@ -50,7 +47,6 @@
             "countryName": "Rakousko",
             "weight": "5628",
             "price": "3544",
-            "unit": "PCE",
             "count": "380"
           },
           {
@@ -58,7 +54,6 @@
             "countryName": "Německo",
             "weight": "59664",
             "price": "49284",
-            "unit": "PCE",
             "count": "4716"
           }
         ],
@@ -68,7 +63,6 @@
             "countryName": "Rakousko",
             "weight": "304159",
             "price": "85356",
-            "unit": "PCE",
             "count": "15368"
           },
           {
@@ -76,7 +70,6 @@
             "countryName": "Německo",
             "weight": "614751",
             "price": "198422",
-            "unit": "PCE",
             "count": "41406"
           }
         ]
@@ -86,6 +79,7 @@
   {
     "code": "87149110",
     "name": "Rámy pro vozidla čísel 8711 až 8713 (kromě pro motocykly,mopedy a vozí",
+    "unit": "PCE",
     "intervals": [
       {
         "period": "1/2014",
@@ -95,7 +89,6 @@
             "countryName": "Německo",
             "weight": "26",
             "price": "189",
-            "unit": "PCE",
             "count": "64"
           }
         ],
@@ -105,7 +98,6 @@
             "countryName": "Rakousko",
             "weight": "568",
             "price": "857",
-            "unit": "PCE",
             "count": "377"
           },
           {
@@ -113,7 +105,6 @@
             "countryName": "Německo",
             "weight": "5937",
             "price": "4394",
-            "unit": "PCE",
             "count": "1180"
           }
         ]
@@ -126,7 +117,6 @@
             "countryName": "Německo",
             "weight": "37",
             "price": "294",
-            "unit": "PCE",
             "count": "48"
           }
         ],
@@ -136,7 +126,6 @@
             "countryName": "Rakousko",
             "weight": "290",
             "price": "454",
-            "unit": "PCE",
             "count": "120"
           },
           {
@@ -144,7 +133,6 @@
             "countryName": "Německo",
             "weight": "22164",
             "price": "9315",
-            "unit": "PCE",
             "count": "9118"
           }
         ]

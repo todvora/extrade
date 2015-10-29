@@ -2,6 +2,9 @@ import React from 'react';
 import chartjs from 'chart.js';
 import BarChart from './ChartWithLegend'
 import update from 'react-addons-update';
+import PropertySelector from './PropertySelector';
+
+import properties from '../resources/properties.json';
 
 export default class Chart extends React.Component {
 
@@ -70,14 +73,7 @@ export default class Chart extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <div className="btn-group" role="group" style={{clear:'both', margin:'20px 0'}}>
-            <a className={"btn btn-default " + (this.state.property == 'price' ? 'btn-primary' : '')} href="#" onClick={this.selectProperty.bind(this, 'price')}>Cena</a>
-            <a className={"btn btn-default " + (this.state.property == 'count' ? 'btn-primary' : '')} href="#" onClick={this.selectProperty.bind(this, 'count')}>Množství</a>
-            <a className={"btn btn-default " + (this.state.property == 'weight' ? 'btn-primary' : '')} href="#" onClick={this.selectProperty.bind(this, 'weight')}>Hmotnost</a>
-          </div>
-        </div>
-
+        <PropertySelector defaultProperty={this.state.property} onChange={this.selectProperty} availableProperties={properties.map(prop=>{prop.label = prop.labelPattern.replace("{units}", this.props.product.unit);return prop})}/>
         <div>
           { this.props.visible &&
             <div>

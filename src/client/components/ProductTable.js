@@ -36,7 +36,7 @@ export default class ProductTable extends React.Component {
   render() {
     return (
       <div className="product-table">
-        <h3>{this.props.direction}, {this.props.property}</h3>
+        <h3>{this.props.label}</h3>
         <table className="table table-condensed table-hover table-bordered">
           <thead>
             <tr>
@@ -67,5 +67,6 @@ export default class ProductTable extends React.Component {
 ProductTable.propTypes = {
   product: React.PropTypes.object.isRequired,
   direction: React.PropTypes.string.isRequired,
-  property: React.PropTypes.string.isRequired
+  property: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string.isRequired
 };

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "price",
+    "label": "Stat. hodnota CZK(tis.)",
+    "labelPattern": "Stat. hodnota v CZK(tis.)"
+  },
+  {
+    "name": "count",
+    "label": "Množství v MJ",
+    "labelPattern": "Množství v {units}"
+  },
+  {
+    "name": "weight",
+    "label": "Hmotnost v kg",
+    "labelPattern": "Hmotnost v kg"
+  }
+]

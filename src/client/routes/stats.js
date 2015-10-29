@@ -11,6 +11,8 @@ import ProductPromise from '../utils/DataPromiseUtils';
 import DateUtils from '../utils/DateUtils';
 import Q from 'q';
 import update from 'react-addons-update';
+import request from 'superagent-q';
+
 
 export default class Stats extends React.Component {
 

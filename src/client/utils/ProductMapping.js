@@ -22,7 +22,15 @@ var mapProducts = function(inputData) {
        .map(i => i.results)
        .reduce((acc, val) =>  acc.concat(val), []) //flatten
        .filter(res => res.code == product.code && res.period == period)
-       .map(res => _.pick(res, ['country', 'countryName', 'weight', 'price', 'unit', 'count']));
+       .map(res => _.pick(res, ['country', 'countryName', 'weight', 'price', 'count']));
+  }
+
+  const filterUnit = function(importData, product) {
+    return importData
+      .map(i => i.results)
+      .reduce((acc, val) =>  acc.concat(val), []) //flatten
+      .filter(res => res.code == product.code)
+      .map(res => res.unit)[0];
   }
 
   return products.map(product => {
@@ -36,9 +44,12 @@ var mapProducts = function(inputData) {
       };
     });
 
+    const unit = filterUnit(inputData, product);
+
     return {
       name:product.name,
       code:product.code,
+      unit:unit,
       intervals:intervals
     };
   });

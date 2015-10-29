@@ -39,7 +39,12 @@ module.exports = function(isDevelopment) {
           'style-loader!' + lessLoaders
           : ExtractTextPlugin.extract('style-loader', lessLoaders),
         test: /\.(less|css)$/
-      }]
+      },
+      {
+        loader:'json-loader',
+        test: /\.(json|geojson)$/
+      }
+      ]
     },
     output: isDevelopment ? {
       path: path.join(__dirname, '/build/'),

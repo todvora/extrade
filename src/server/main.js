@@ -68,5 +68,5 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.listen(config.port);
-console.log(`Server started on port ${config.port}`);
+app.listen(config.port, config.ip);
+console.log(`Server started on port ${config.port} and ip ${config.ip}`);

@@ -16,7 +16,7 @@
     "test:dev": "npm run test -- --watch",
     "deploy": "npm run test && npm run compile",
     "production": "npm run clean && NODE_ENV=production npm run compile npm run compile && NODE_ENV=production npm run dev",
-    "distribute": "NODE_ENV=production npm run clean && npm run compile && node -r dotenv/config --harmony bin/distribute"
+    "distribute": "npm run clean && NODE_ENV=production npm run compile && node -r dotenv/config --harmony bin/distribute"
   },
   "repository": {
     "type": "git",

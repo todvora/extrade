@@ -6,7 +6,7 @@ import Q from 'q'
 import update from 'react-addons-update'
 
 const getApiUrl = (part, params) => {
-  return 'https://extrade-tdvorak.rhcloud.com/api/v1/l' + part + '?callback=?&' + querystring.stringify(params)
+  return 'https://extrade-tdvorak.rhcloud.com/api/v1/' + part + '?callback=?&' + querystring.stringify(params)
 }
 
 // ------------------------------------

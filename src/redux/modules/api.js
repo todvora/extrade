@@ -5,6 +5,10 @@ import querystring from 'querystring'
 import Q from 'q'
 import update from 'react-addons-update'
 
+const getApiUrl = (part, params) => {
+  return 'https://extrade-tdvorak.rhcloud.com/api/v1/l' + part + '?callback=?&' + querystring.stringify(params)
+}
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -60,7 +64,7 @@ export const readDataAsync = () => {
     var promises = parts
       .map((promise, index, array) => {
         return promise
-          .then(criteria => Q($.get('/api/data?' + querystring.stringify(criteria))))
+          .then(criteria => Q($.getJSON(getApiUrl('data', criteria))))
           .then(result => {
             finishedCalls = finishedCalls + 1
             dispatch(loading(array.length, finishedCalls))

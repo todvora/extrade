@@ -12,6 +12,7 @@ import querystring from 'querystring'
 const mapStateToProps = (state) => ({
   criteria: state.criteria
 })
+
 export class CriteriaView extends React.Component {
   static propTypes = {
     criteria: React.PropTypes.object.isRequired,
@@ -28,27 +29,36 @@ export class CriteriaView extends React.Component {
   constructor () {
     super()
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.getApiUrl = this.getApiUrl.bind(this)
+    this.getProductSuggestions = this.getProductSuggestions.bind(this)
+    this.getCountrySuggestions = this.getCountrySuggestions.bind(this)
+  }
+
+  getApiUrl (part, params) {
+    return 'https://extrade-tdvorak.rhcloud.com/api/v1/' + part + '?callback=?&' + querystring.stringify(params)
   }
 
   componentDidMount () {
     var that = this
-    $.get('/api/last-date', function (lastDate) {
+    $.getJSON(this.getApiUrl('last-date'), function (lastDate) {
       var lastTill = moment({year: lastDate.year, month: lastDate.month - 1}) // months are zero-based
       var lastFrom = lastTill.clone().subtract().subtract(11, 'months').subtract(9, 'years')
       that.props.setMaxDate(lastDate)
       that.props.setInterval({from: {month: lastFrom.month() + 1, year: lastFrom.year()}, till: {month: lastDate.month, year: lastDate.year}})
     })
-    $.get('/api/products-preload', result => console.log(result))
+    $.getJSON(this.getApiUrl('products-preload'), result => console.log(result))
   }
 
+  // TODO: rewrite suggestions to redux style
   getProductSuggestions (input, callback) {
-    $.get('/api/products?q=' + input, function (result) {
+    $.getJSON(this.getApiUrl('products', {q: input}), function (result) {
       callback(null, result)
     })
   }
 
+  // TODO: rewrite suggestions to redux style
   getCountrySuggestions (input, callback) {
-    $.get('/api/countries?q=' + input, function (result) {
+    $.getJSON(this.getApiUrl('countries', {q: input}), function (result) {
       callback(null, result)
     })
   }

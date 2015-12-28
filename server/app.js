@@ -1,13 +1,10 @@
 import express from 'express'
 import historyApiFallback from 'connect-history-api-fallback'
 import config from '../config'
-import api from './api/api'
 
 const app = express()
 const debug = require('debug')('app:server')
 const paths = config.utils_paths
-
-app.use('/api', api)
 
 app.use(historyApiFallback({
   verbose: false

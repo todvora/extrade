@@ -22,12 +22,12 @@ export default class DateSelector extends React.Component {
  render () {
    return (
       <span>
-          <select onChange={this.onDateChange} onKeyUp={this.onDateChange} ref='month' value={parseInt(this.props.currentDate.month, 10)}>
+          <select className='form-control' onChange={this.onDateChange} onKeyUp={this.onDateChange} ref='month' value={parseInt(this.props.currentDate.month, 10)}>
              {this.months.map((month, index) => {
                return <option key={month} value={index + 1}>{month}</option>
              }, this)}
           </select>
-          <select onChange={this.onDateChange} onKeyUp={this.onDateChange} ref='year' value={this.props.currentDate.year}>
+          <select className='form-control' onChange={this.onDateChange} onKeyUp={this.onDateChange} ref='year' value={this.props.currentDate.year}>
           {this.years.map(year => {
             return <option key={year} value={year}>{year}</option>
           }, this)}

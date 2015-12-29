@@ -24,7 +24,7 @@ export default class GroupBySelect extends React.Component {
   render () {
     return (
       <div>
-       Seskupování: <select value={this.props.value} onChange={this.handleChange}>
+       Seskupování: <select className='form-control' value={this.props.value} onChange={this.handleChange}>
       {this.getOptions().map(opt =>
         <option key={opt.code} value={opt.code}>{opt.label}</option>
       )}

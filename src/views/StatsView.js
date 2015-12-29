@@ -8,7 +8,8 @@ import { actions as apiActions } from '../redux/modules/api'
 const mapStateToProps = (state) => ({
   progress: state.api.progress,
   products: state.api.products,
-  error: state.api.error
+  error: state.api.error,
+  criteria: state.criteria
 })
 
 export class StatsView extends React.Component {
@@ -17,7 +18,8 @@ export class StatsView extends React.Component {
     progress: React.PropTypes.object.isRequired,
     products: React.PropTypes.array.isRequired,
     error: React.PropTypes.string,
-    readDataAsync: React.PropTypes.func.isRequired
+    readDataAsync: React.PropTypes.func.isRequired,
+    criteria: React.PropTypes.object.isRequired
   }
 
   componentDidMount () {
@@ -42,7 +44,7 @@ export class StatsView extends React.Component {
         <ProductNavigation products={this.props.products} />
         <div className='products'>
           {this.props.products.map(product => {
-            return <Product product={product}/>
+            return <Product product={product} criteria={this.props.criteria}/>
           })}
         </div>
       </div>

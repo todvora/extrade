@@ -5,9 +5,11 @@ export class AboutView extends React.Component {
   render () {
     return (
       <div className='container text-center'>
-        <h1>This is the about view!</h1>
+        <h1>O aplikaci</h1>
+        <p>Aplikace Statistiky zahraničního obchodu funguje jako alternativní rozhraní k oficiálním statistikám.
+        Nabízí stejná data jinak prezentovaná.</p>
         <hr />
-        <Link to='/'>Back To Home View</Link>
+        <Link to='/'>Zpět na úvodní stránku</Link>
       </div>
     )
   }

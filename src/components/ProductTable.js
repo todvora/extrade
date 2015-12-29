@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import '../styles/ProductTable.less'
+import VerifyLink from 'components/VerifyLink'
 
 export default class ProductTable extends React.Component {
 
@@ -22,14 +23,15 @@ export default class ProductTable extends React.Component {
       })
   }
 
-  getRowValue (countryCode, interval) {
+  getRowValue (countryCode, interval, direction) {
     const value = this.props.product.intervals
       .filter(i => i.period === interval)
-      .map(i => i[this.props.direction])
+      .map(i => i[direction])
       .reduce((acc, val) => acc.concat(val), []) // flatten
       .filter(row => row.country === countryCode)
       .map(row => row[this.props.property])
-    return value.length > 0 ? value[0] : 0
+    const result = value.length > 0 ? value[0] : 0
+    return result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0')
   }
 
   render () {
@@ -42,7 +44,7 @@ export default class ProductTable extends React.Component {
              <th>Kód země</th>
              <th>Název země</th>
              {this.props.product.intervals.map(interval => {
-               return <th>{interval.period}</th>
+               return <th className='value'>{interval.period}</th>
              })}
             </tr>
           </thead>
@@ -52,12 +54,15 @@ export default class ProductTable extends React.Component {
                   <td>{row.country}</td>
                   <td>{row.countryName}</td>
                    {this.props.product.intervals.map(interval => {
-                     return <td>{this.getRowValue(row.country, interval.period)}</td>
+                     return <td className='value'>{this.getRowValue(row.country, interval.period, this.props.direction)}</td>
                    })}
                 </tr>
           })}
         </tbody>
         </table>
+        <div className='verify-link'>
+          <VerifyLink product={this.props.product} direction={this.props.direction} criteria={this.props.criteria} />
+        </div>
       </div>
     )
   }
@@ -67,5 +72,6 @@ ProductTable.propTypes = {
   product: React.PropTypes.object.isRequired,
   direction: React.PropTypes.string.isRequired,
   property: React.PropTypes.string.isRequired,
-  label: React.PropTypes.string.isRequired
+  label: React.PropTypes.string.isRequired,
+  criteria: React.PropTypes.object.isRequired
 }

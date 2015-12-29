@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import '../styles/core.scss'
+import '../styles/main.less'
 
 // Note: Stateless/function components *will not* hot reload!
 // react-transform *only* works on component classes.
